@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lk.playTech.chatApp.controller.ClientFormController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.playTech.chatApp.controller.ClientFormController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1000.0">
+         <image>
+            <Image url="@../img/User (5).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgPhoto" layoutX="85.0" layoutY="688.0" onMouseClicked="#imgPhotoOnMouseClicked">
+         <image>
+            <Image url="@../img/image 79.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgEmoji" layoutX="835.0" layoutY="688.0" onMouseClicked="#imgEmojiOnMouseClicked">
+         <image>
+            <Image url="@../img/image 80.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgSend" layoutX="884.0" layoutY="688.0" onMouseClicked="#imgSendOnMouseClicked">
+         <image>
+            <Image url="@../img/image 81.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtMessage" layoutX="131.0" layoutY="683.0" onKeyPressed="#txtMessegeOnKeyPressed" prefHeight="40.0" prefWidth="704.0" promptText="                                                                 Message" style="-fx-background-color: FFFFFF;">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lblName" alignment="CENTER" layoutX="469.0" layoutY="17.0" prefHeight="42.0" prefWidth="225.0" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>
