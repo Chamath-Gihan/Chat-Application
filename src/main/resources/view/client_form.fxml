@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.playTech.chatApp.controller.ClientFormController">
+<AnchorPane fx:id="root1" onMouseClicked="#root01OnMouseClicked" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.playTech.chatApp.controller.ClientFormController">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1000.0">
          <image>
@@ -54,9 +54,19 @@
             <Font name="System Bold" size="28.0" />
          </font>
       </Label>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <VBox layoutX="-3.0" prefHeight="573.0" prefWidth="956.0" />
+         </children>
+      </AnchorPane>
+      <ScrollPane fx:id="scrollPane" layoutX="21.0" layoutY="96.0" prefHeight="573.0" prefWidth="956.0">
+         <content>
+            <VBox fx:id="messageVbox" prefHeight="570.0" prefWidth="954.0" />
+         </content>
+      </ScrollPane>
       <AnchorPane fx:id="root2" layoutX="715.0" layoutY="338.0" prefHeight="322.0" prefWidth="235.0">
          <children>
-            <GridPane layoutX="18.0" layoutY="1.0" prefHeight="322.0" prefWidth="200.0">
+            <GridPane fx:id="gridPane" layoutX="18.0" layoutY="1.0" prefHeight="322.0" prefWidth="200.0" style="-fx-background-color: E1FFFB; -fx-border-radius: 25; -fx-background-radius: 25;">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -71,18 +81,130 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
+               <children>
+                  <ImageView onMouseClicked="#emoji17" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@../img/smiling-face-with-smiling-eyes-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji02" GridPane.columnIndex="1">
+                     <image>
+                        <Image url="@../img/grinning-face-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji03" GridPane.columnIndex="2">
+                     <image>
+                        <Image url="@../img/face-with-tears-of-joy-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji04" GridPane.columnIndex="3">
+                     <image>
+                        <Image url="@../img/smiling-face-with-heart-eyes-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji05" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../img/face-blowing-a-kiss.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji06" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../img/thumbs-up-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji07" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../img/thumbs-down-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji08" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../img/red-heart-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji09" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../img/crying-face.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji10" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../img/loudly-crying-face-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji11" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../img/pensive-face-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji12" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../img/sleepy-face-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji13" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../img/smirking-face-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji14" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../img/pouting-face-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji15" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../img/confused-face.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji16" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../img/rolling-on-the-floor-laughing-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji01">
+                     <image>
+                        <Image url="@../img/grinning-face-with-smiling-eyes-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji18" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@../img/face-with-medical-mask.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji19" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@../img/fire-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji20" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@../img/winking-face-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji21" GridPane.rowIndex="5">
+                     <image>
+                        <Image url="@../img/smiling-face-with-sunglasses-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji22" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <image>
+                        <Image url="@../img/face-with-hand-over-mouth.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji23" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                     <image>
+                        <Image url="@../img/face-with-rolling-eyes-48.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView onMouseClicked="#emoji24" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                     <image>
+                        <Image url="@../img/partying-face-48.png" />
+                     </image>
+                  </ImageView>
+               </children>
             </GridPane>
          </children>
       </AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <VBox layoutX="-3.0" prefHeight="573.0" prefWidth="956.0" />
-         </children>
-      </AnchorPane>
-      <ScrollPane fx:id="scrollPane" layoutX="21.0" layoutY="96.0" prefHeight="573.0" prefWidth="956.0">
-         <content>
-            <VBox fx:id="messageVbox" prefHeight="570.0" prefWidth="954.0" />
-         </content>
-      </ScrollPane>
    </children>
 </AnchorPane>

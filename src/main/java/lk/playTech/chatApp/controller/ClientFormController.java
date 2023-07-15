@@ -10,20 +10,22 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import lk.playTech.chatApp.controller.LoginFormController;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ClientFormController {
+
+    @FXML
+    private GridPane gridPane;
 
     @FXML
     private ImageView imgEmoji;
@@ -41,6 +43,9 @@ public class ClientFormController {
     private VBox messageVbox;
 
     @FXML
+    private AnchorPane root1;
+
+    @FXML
     private AnchorPane root2;
 
     @FXML
@@ -51,6 +56,7 @@ public class ClientFormController {
 
     @FXML
     public void initialize() {
+        root2.setVisible(false);
         lblName.setText("Hello " + LoginFormController.userName + " !");
         scrollPane.vvalueProperty().bind(messageVbox.heightProperty());
 
@@ -78,7 +84,18 @@ public class ClientFormController {
 
     @FXML
     void imgEmojiOnMouseClicked(MouseEvent event) {
+        root2.setVisible(true);
+    }
 
+    @FXML
+    void root01OnMouseClicked(MouseEvent event) {
+        if (event.getTarget() == imgEmoji) {
+            root2.setVisible(true);
+        } else if(event.getTarget() == gridPane){
+            root2.setVisible(true);
+        }else {
+            root2.setVisible(false);
+        }
     }
 
     @FXML
@@ -98,10 +115,155 @@ public class ClientFormController {
         }
     }
 
+    @FXML
+    void emoji01(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F604));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji02(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F600));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji03(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F602));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji04(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F60D));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji05(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F618));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji06(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F44D));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji07(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F44E));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji08(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x2764));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji09(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F622));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji10(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F62D));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji11(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F614));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji12(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F634));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji13(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F60F));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji14(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F621));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji15(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F615));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji16(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F923));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji17(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F603));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji18(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F637));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji19(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F525));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji20(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F609));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji21(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F60E));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji22(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F92D));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji23(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F644));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+    @FXML
+    void emoji24(MouseEvent event) {
+        String emoji = new String(Character.toChars(0x1F973));
+        txtMessage.setText(txtMessage.getText() + emoji);
+    }
+
+
     private void sendMessage() {
         String messageText = txtMessage.getText().trim();
         if (messageText.isEmpty()) {
-            return; // Return early if the message is empty
+            return;
         }
 
         String senderName = LoginFormController.userName;
@@ -167,26 +329,20 @@ public class ClientFormController {
 
         TextFlow messageFlow = new TextFlow();
 
-        // Create a Text node for the sender's name
         Text nameText = new Text(senderName + ": ");
         nameText.setStyle("-fx-font-weight: bold; -fx-fill: blue;");
 
-        // Create a Text node for the timestamp
         Text timestampText = new Text(timestamp);
         timestampText.setStyle("-fx-fill: gray;");
 
-        // Create an ImageView to display the photo
         ImageView photoImageView = new ImageView();
-        photoImageView.setFitWidth(200); // Set the desired width
+        photoImageView.setFitWidth(200);
         photoImageView.setPreserveRatio(true);
         photoImageView.setImage(new Image(photoFile.toURI().toString()));
 
-        // Add the message components to the TextFlow
+        
         messageFlow.getChildren().addAll(nameText, new Text("\n"), photoImageView, new Text("\n"), timestampText);
         messageFlow.setStyle("-fx-background-color: lightgray; -fx-padding: 5px; -fx-background-radius: 5px;");
-
         messageVbox.getChildren().add(messageFlow);
     }
-
-
 }
