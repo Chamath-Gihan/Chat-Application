@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -13,9 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import lk.playTech.chatApp.controller.LoginFormController;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -81,15 +83,7 @@ public class ClientFormController {
 
     @FXML
     void imgPhotoOnMouseClicked(MouseEvent event) {
-        String command = "xdg-open " + System.getProperty("user.home"); // Set the desired location here
-
-        try {
-            Process process = Runtime.getRuntime().exec(command);
-            process.waitFor();
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            // Handle the exception as needed
-        }
+        selectAndSendPhoto();
     }
 
     @FXML
@@ -105,15 +99,20 @@ public class ClientFormController {
     }
 
     private void sendMessage() {
+        String messageText = txtMessage.getText().trim();
+        if (messageText.isEmpty()) {
+            return; // Return early if the message is empty
+        }
+
         String senderName = LoginFormController.userName;
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm a"));
 
-        String formattedMessage = String.format("%s:%n%n%s%n%n%s%n%n", senderName, txtMessage.getText(), timestamp);
+        String formattedMessage = String.format("%s:%n%n%s%n%n%s%n%n", senderName, messageText, timestamp);
 
         TextFlow messageFlow = new TextFlow();
         Text nameText = new Text(senderName + ":");
         nameText.setStyle("-fx-font-weight: bold; -fx-fill: blue;");
-        Text contentText = new Text(txtMessage.getText());
+        Text contentText = new Text(messageText);
         contentText.setStyle("-fx-fill: black;");
         Text timestampText = new Text(timestamp);
         timestampText.setStyle("-fx-fill: gray;");
@@ -149,5 +148,43 @@ public class ClientFormController {
     }
 
 
+    private void selectAndSendPhoto() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Photo");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png"));
 
+        Window window = root2.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(window);
+
+        if (selectedFile != null) {
+            sendPhoto(selectedFile);
+        }
+    }
+
+    private void sendPhoto(File photoFile) {
+        String senderName = LoginFormController.userName;
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm a"));
+
+        TextFlow messageFlow = new TextFlow();
+
+        // Create a Text node for the sender's name
+        Text nameText = new Text(senderName + ": ");
+        nameText.setStyle("-fx-font-weight: bold; -fx-fill: blue;");
+
+        // Create a Text node for the timestamp
+        Text timestampText = new Text(timestamp);
+        timestampText.setStyle("-fx-fill: gray;");
+
+        // Create an ImageView to display the photo
+        ImageView photoImageView = new ImageView();
+        photoImageView.setFitWidth(200); // Set the desired width
+        photoImageView.setPreserveRatio(true);
+        photoImageView.setImage(new Image(photoFile.toURI().toString()));
+
+        // Add the message components to the TextFlow
+        messageFlow.getChildren().addAll(nameText, new Text("\n"), photoImageView, new Text("\n"), timestampText);
+        messageFlow.setStyle("-fx-background-color: lightgray; -fx-padding: 5px; -fx-background-radius: 5px;");
+
+        messageVbox.getChildren().add(messageFlow);
+    }
 }
