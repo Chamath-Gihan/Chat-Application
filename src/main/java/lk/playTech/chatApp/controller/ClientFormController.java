@@ -15,6 +15,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import lk.playTech.chatApp.controller.LoginFormController;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -48,6 +51,27 @@ public class ClientFormController {
     public void initialize() {
         lblName.setText("Hello " + LoginFormController.userName + " !");
         scrollPane.vvalueProperty().bind(messageVbox.heightProperty());
+
+        imgEmoji.setOnMouseEntered(event -> {
+            imgEmoji.setEffect(new javafx.scene.effect.DropShadow(javafx.scene.effect.BlurType.GAUSSIAN, Color.BLUEVIOLET, 10, 0.5, 0, 0));
+        });
+        imgEmoji.setOnMouseExited(event -> {
+            imgEmoji.setEffect(null);
+        });
+
+        imgPhoto.setOnMouseEntered(event -> {
+            imgPhoto.setEffect(new javafx.scene.effect.DropShadow(javafx.scene.effect.BlurType.GAUSSIAN, Color.BLUEVIOLET, 10, 0.5, 0, 0));
+        });
+        imgPhoto.setOnMouseExited(event -> {
+            imgPhoto.setEffect(null);
+        });
+
+        imgSend.setOnMouseEntered(event -> {
+            imgSend.setEffect(new javafx.scene.effect.DropShadow(javafx.scene.effect.BlurType.GAUSSIAN, Color.BLUEVIOLET, 10, 0.5, 0, 0));
+        });
+        imgSend.setOnMouseExited(event -> {
+            imgSend.setEffect(null);
+        });
     }
 
     @FXML
@@ -57,7 +81,15 @@ public class ClientFormController {
 
     @FXML
     void imgPhotoOnMouseClicked(MouseEvent event) {
+        String command = "xdg-open " + System.getProperty("user.home"); // Set the desired location here
 
+        try {
+            Process process = Runtime.getRuntime().exec(command);
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            // Handle the exception as needed
+        }
     }
 
     @FXML
