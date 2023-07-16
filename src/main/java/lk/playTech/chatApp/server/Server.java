@@ -1,23 +1,28 @@
 package lk.playTech.chatApp.server;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import lk.playTech.chatApp.threadHandler.Handler;
 
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
 
-public class Server extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
+public class Server {
+    private static ArrayList<Handler> clients = new ArrayList<>();
 
-    @Override
-    public void start(Stage primaryStage) throws IOException {
-        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/login_form.fxml"))));
-        primaryStage.setTitle("Login");
-        primaryStage.centerOnScreen();
-        primaryStage.setResizable(false);
-        primaryStage.show();
+    public static void main(String[] args) throws IOException {
+
+        ServerSocket serverSocket =new ServerSocket(3000);
+
+        Socket accept;
+
+        while (true){
+            System.out.println("waiting for client.....");
+            accept= serverSocket.accept();
+            System.out.println("Client Connected");
+            Handler clientThread =new Handler(accept,clients);
+            clients.add(clientThread);
+            clientThread.start();
+        }
     }
 }

@@ -1,6 +1,9 @@
 package lk.playTech.chatApp.controller;
 
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -16,13 +19,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
-import java.io.File;
+import java.io.*;
+import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ClientFormController {
+public class ClientFormController extends Thread{
+
+    Socket socket;
+    BufferedReader reader;
+    PrintWriter writer;
+    private FileChooser fileChooser;
+    private File filePath;
+    String name;
 
     @FXML
     private GridPane gridPane;
@@ -56,8 +68,9 @@ public class ClientFormController {
 
     @FXML
     public void initialize() {
+        name = LoginFormController.userName;
         root2.setVisible(false);
-        lblName.setText("Hello " + LoginFormController.userName + " !");
+        lblName.setText("Hello " + name + " !");
         scrollPane.vvalueProperty().bind(messageVbox.heightProperty());
 
         imgEmoji.setOnMouseEntered(event -> {
@@ -80,7 +93,67 @@ public class ClientFormController {
         imgSend.setOnMouseExited(event -> {
             imgSend.setEffect(null);
         });
+
+        try {
+            socket = new Socket("localhost", 3000);
+            System.out.println("Socket connected to server");
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            writer = new PrintWriter(socket.getOutputStream(), true);
+
+            Task<Void> receiverTask = new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    String message;
+                    while ((message = reader.readLine()) != null) {
+                        updateUIWithReceivedMessage(message);
+                    }
+                    return null;
+                }
+            };
+
+            Thread receiverThread = new Thread(receiverTask);
+            receiverThread.setDaemon(true);
+            receiverThread.start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    private void updateUIWithReceivedMessage(String message) {
+        Platform.runLater(() -> {
+            TextFlow messageFlow = new TextFlow();
+            Text receivedText = new Text(message);
+            receivedText.setStyle("-fx-fill: black;");
+            messageFlow.getChildren().add(receivedText);
+            messageVbox.getChildren().add(messageFlow);
+        });
+    }
+
+    @Override
+    public void run() {
+        try {
+            String message;
+            while ((message = reader.readLine()) != null) {
+                // Process the received message (e.g., display it in the UI)
+                processReceivedMessage(message);
+            }
+        } catch ( IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void processReceivedMessage(String message) {
+        // Update the UI with the received message
+        Platform.runLater(() -> {
+            TextFlow messageFlow = new TextFlow();
+            Text receivedText = new Text(message);
+            receivedText.setStyle("-fx-fill: black;");
+            messageFlow.getChildren().add(receivedText);
+            messageVbox.getChildren().add(messageFlow);
+        });
+    }
+
 
     @FXML
     void imgEmojiOnMouseClicked(MouseEvent event) {
@@ -99,7 +172,7 @@ public class ClientFormController {
     }
 
     @FXML
-    void imgPhotoOnMouseClicked(MouseEvent event) {
+    void imgPhotoOnMouseClicked(MouseEvent mouseEvent) throws IOException {
         selectAndSendPhoto();
     }
 
@@ -266,7 +339,7 @@ public class ClientFormController {
             return;
         }
 
-        String senderName = LoginFormController.userName;
+        String senderName = name;
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm a"));
 
         String formattedMessage = String.format("%s:%n%n%s%n%n%s%n%n", senderName, messageText, timestamp);
@@ -304,9 +377,12 @@ public class ClientFormController {
         if (!messageVbox.getChildren().isEmpty()) {
             messageVbox.getChildren().add(new Text("\n")); // Add new line
         }
-        messageVbox.getChildren().add(messageFlow);
+//        messageVbox.getChildren().add(messageFlow);
 
         txtMessage.clear();
+
+        writer.println(formattedMessage);
+
     }
 
 
@@ -324,7 +400,7 @@ public class ClientFormController {
     }
 
     private void sendPhoto(File photoFile) {
-        String senderName = LoginFormController.userName;
+        String senderName = name;
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm a"));
 
         TextFlow messageFlow = new TextFlow();
@@ -340,9 +416,10 @@ public class ClientFormController {
         photoImageView.setPreserveRatio(true);
         photoImageView.setImage(new Image(photoFile.toURI().toString()));
 
-        
+
         messageFlow.getChildren().addAll(nameText, new Text("\n"), photoImageView, new Text("\n"), timestampText);
         messageFlow.setStyle("-fx-background-color: lightgray; -fx-padding: 5px; -fx-background-radius: 5px;");
         messageVbox.getChildren().add(messageFlow);
     }
+
 }
